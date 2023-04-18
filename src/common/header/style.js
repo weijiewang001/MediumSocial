@@ -57,6 +57,21 @@ export const NavItem = styled.div`
   }
 `
 
+export const SearchWrapper = styled.div`
+  position: relative;
+  float:left;
+
+  .iconfont {
+    position: absolute;
+    right:5px;
+    bottom: 5px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 15px;
+  }
+`;
+
 export const NavSearch = styled.input.attrs({
   placeholder: 'Search'
 })`
