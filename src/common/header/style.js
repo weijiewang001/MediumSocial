@@ -70,6 +70,7 @@ export const SearchWrapper = styled.div`
     text-align: center;
     border-radius: 15px;
   }
+  
 `;
 
 export const NavSearch = styled.input.attrs({
