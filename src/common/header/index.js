@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
 import { CSSTransition } from 'react-transition-group';
+import { actionCreators } from './store';
+
 
 import 
 { 
@@ -62,23 +63,18 @@ const  Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.focused
+    focused: state.getIn(['header', 'focused'])
+    // 等价于state.get('header').get('focused')
   }
 }
 
 const mapDispathToProps = (dispatch) => {
   return {
     handleInputFocus(){
-      const action = {
-        type: 'search_focus'
-      }
-      dispatch(action)
+      dispatch(actionCreators.searchFocus());
     },
     handleInputBlur(){
-      const action = {
-        type: 'search_blur'
-      }
-      dispatch(action)
+      dispatch(actionCreators.searchBlur());
     }
   }
 }
