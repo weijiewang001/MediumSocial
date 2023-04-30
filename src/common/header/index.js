@@ -42,7 +42,10 @@ class Header extends Component {
           onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>
             Top search
-            <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage)}>Switch</SearchInfoSwitch>
+            <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage, this.spinIcon)}>
+              <span ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</span>
+              Switch
+            </SearchInfoSwitch>
           </SearchInfoTitle>
           <SearchInfoList>
             {pageList}
@@ -55,7 +58,7 @@ class Header extends Component {
   }
 
   render() {
-    const { focused, handleInputFocus, handleInputBlur  } = this.props;
+    const { focused, handleInputFocus, handleInputBlur, list  } = this.props;
     return (
       <HeaderWrapper className='dell'>
         <Logo>
@@ -77,11 +80,11 @@ class Header extends Component {
             >
               <NavSearch
                 className={focused ? 'focused' : ''}
-                onFocus={handleInputFocus}
+                onFocus={() => handleInputFocus(list)}
                 onBlur={handleInputBlur}
               ></NavSearch>
             </CSSTransition>
-            <span className={focused ? 'focused iconfont' : 'iconfont'}>
+            <span className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>
               &#xe662;
             </span>
             {this.getListArea()}
@@ -117,8 +120,13 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
   return {
-    handleInputFocus() {
-      dispatch(actionCreators.getList());
+    handleInputFocus(list) {
+      // console.log(list.size);
+      (list.size === 0) && dispatch(actionCreators.getList())
+      // 等价于
+      // if (list.size > 0){
+      //   dispatch(actionCreators.getList())
+      // }
       dispatch(actionCreators.searchFocus());
     },
     handleInputBlur() {
@@ -130,7 +138,18 @@ const mapDispathToProps = (dispatch) => {
     handleMouseLeave() {
       dispatch(actionCreators.mouseLeave());
     },
-    handleChangePage(page, totalPage) {
+    handleChangePage(page, totalPage, spin) {
+      // 如果transform里面的字符不是数字，那么都替换成空
+      let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+      if (originAngle) {
+        // 将一个字符转化成一个十进制的数字
+        originAngle = parseInt(originAngle, 10);
+      }else {
+        originAngle = 0;
+      }
+      // console.log(originAngle)
+      // 这里的写法将rotate中的数字变成一个变量
+      spin.style.transform = 'rotate(' + (originAngle + 360) + 'deg)'
       if (page < totalPage) {
         dispatch(actionCreators.changePage(page + 1));
       }else {
