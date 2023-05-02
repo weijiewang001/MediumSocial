@@ -7,8 +7,8 @@ import Header from "./common/header";
 import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './Home.js';
-import Detail from './Detail.js';
+import Home from './pages/home';
+import Detail from './pages/detail';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,8 +20,8 @@ root.render(
         <Header></Header>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Home></Home>}></Route>
-            <Route path='/detail' element={<Detail></Detail>}></Route>
+            <Route path='/' element={<Home/>}></Route>
+            <Route path='/detail' element={<Detail/>}></Route>
           </Routes>
         </BrowserRouter>
     </Provider>
