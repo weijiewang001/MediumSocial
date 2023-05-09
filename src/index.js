@@ -17,8 +17,8 @@ root.render(
     <Provider store={store}>
         <GlobalStyle />
         <GlobalIconStyle/>
-        <Header></Header>
         <BrowserRouter>
+        <Header></Header>
           <Routes>
             <Route path='/' element={<Home/>}></Route>
             <Route path='/detail' element={<Detail/>}></Route>

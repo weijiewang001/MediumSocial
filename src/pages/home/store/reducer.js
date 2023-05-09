@@ -1,23 +1,39 @@
 import { fromJS } from 'immutable';
+import * as constants from './constants';
 
 const defaultState = fromJS({
-  topicList: [{
-    id: 1,
-    title: 'Popular',
-    imagUrl: 'https://miro.medium.com/v2/resize:fit:720/0*8srPci0PJV4qXyZP'
-  },{
-    id: 2,
-    title: 'Arch',
-    imagUrl: 'https://miro.medium.com/v2/resize:fit:720/0*74QU6eDZgkjNVo_9'
-  },{
-    id: 3,
-    title: 'Tech',
-    imagUrl: 'https://miro.medium.com/v2/resize:fit:720/0*WOedyA3KokCEQvQ7'
-  },]
+  topicList: [],
+  articleList: [],
+  recommendList: [],
+  writerList:[],
+  articlePage: 1,
+  showScroll: true,
 });
+
+const changeHomeData = (state, action) => {
+  return state.merge({
+    topicList: fromJS(action.topicList),
+    articleList: fromJS(action.articleList),
+    recommendList: fromJS(action.recommendList),
+    writerList: fromJS(action.writerList),
+  })
+}
+
+const addArticleList = (state, action) => {
+  return state.merge({
+    'articleList': state.get('articleList').concat(action.list),
+    'articlePage': action.nextPage
+  })
+}
 
 export default (state = defaultState, action) => {
   switch(action.type) {
+    case constants.CHANGE_HOME_DATA:
+      return changeHomeData(state, action)
+    case constants.ADD_ARTICLE_LIST:
+      return addArticleList(state, action)
+    case constants.TOGGLE_SCROLL_TOP:
+      return state.set('showScroll',action.show)
     default:
       return state;
   }
