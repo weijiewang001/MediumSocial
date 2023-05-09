@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group';
 import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store';
 import { Link } from 'react-router-dom';
 import 
 { 
@@ -57,7 +58,7 @@ class Header extends PureComponent {
   }
 
   render() {
-    const { focused, handleInputFocus, handleInputBlur, list  } = this.props;
+    const { focused, handleInputFocus, handleInputBlur, list, login, logOut  } = this.props;
     return (
       <HeaderWrapper className='dell'>
         <Link to="/">
@@ -68,7 +69,9 @@ class Header extends PureComponent {
         <Nav>
           <NavItem className='left active'>Home</NavItem>
           <NavItem className='left'>Download App</NavItem>
-          <NavItem className='right'>Sign In</NavItem>
+          {
+            login ? '' : <Link to="/login"><NavItem className='right'>Sign In</NavItem></Link>
+          }
           <NavItem className='right'>
             <span className="iconfont">&#xe636;</span>
           </NavItem>
@@ -96,9 +99,9 @@ class Header extends PureComponent {
             <span className="iconfont">&#xe600;</span>
             Write
           </Button>
-          <Button className='reg'>
-            Get started
-          </Button>
+          {
+            login ? <Button className='reg' onClick={()=>{logOut()}}>Log out</Button> : <Link to="/login"><Button className='reg'>Get started</Button></Link>
+          }
         </Addition>
       </HeaderWrapper>
     )
@@ -113,7 +116,8 @@ const mapStateToProps = (state) => {
     list: state.getIn(['header', 'list']),
     page: state.getIn(['header', 'page']),
     mouseIn: state.getIn(['header', 'mouseIn']),
-    totalPage: state.getIn(['header', 'totalPage'])
+    totalPage: state.getIn(['header', 'totalPage']),
+    login: state.getIn(['login', 'login'])
     // 等价于state.get('header').get('focused')
   }
 }
@@ -158,6 +162,9 @@ const mapDispathToProps = (dispatch) => {
       // console.log(page, totalPage);
       // dispatch(actionCreators.changePage());
     },
+    logOut() {
+      dispatch(loginActionCreators.logout())
+    }
   }
 }
 

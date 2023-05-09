@@ -8,9 +8,6 @@ import {
 import { actionCreators } from "./store";
 import { useParams } from 'react-router-dom';
 
-function withParams(Component) {
-  return props => <Component {...props} params={useParams()} />;
-}
 
 function Detail (props) {
   const { id } = useParams();

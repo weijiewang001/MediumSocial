@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.div`
+  z-index:1;
   position: relative;
   height: 55px;
   border-bottom: 1px solid rgb(240, 240, 240);
