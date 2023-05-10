@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
+import Write from './pages/write';
 import Detail from './pages/detail';
 
 
@@ -23,6 +24,7 @@ root.render(
           <Routes>
             <Route path='/' element={<Home/>}></Route>
             <Route path='/login' element={<Login/>}></Route>
+            <Route path='/write' element={<Write></Write>}></Route>
             <Route path='/detail/:id' element={<Detail/>}></Route>
           </Routes>
         </BrowserRouter>

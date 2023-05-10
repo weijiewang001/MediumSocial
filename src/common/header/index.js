@@ -95,10 +95,12 @@ class Header extends PureComponent {
           
         </Nav>
         <Addition>
-          <Button className='writting'>
-            <span className="iconfont">&#xe600;</span>
-            Write
-          </Button>
+          <Link to='/write'>
+            <Button className='writting'>
+              <span className="iconfont">&#xe600;</span>
+              Write
+            </Button>
+          </Link>
           {
             login ? <Button className='reg' onClick={()=>{logOut()}}>Log out</Button> : <Link to="/login"><Button className='reg'>Get started</Button></Link>
           }
