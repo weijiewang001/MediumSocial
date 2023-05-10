@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
 import Write from './pages/write';
-import Detail from './pages/detail';
+import Detail from './pages/detail/loadable.js';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
